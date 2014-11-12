@@ -1,0 +1,101 @@
+on boot
+    chown root system /sys/class/leds/rgb_red/brightness
+    chown root system /sys/class/leds/rgb_green/brightness
+    chown root system /sys/class/leds/rgb_blue/brightness
+
+    chown root system /sys/class/leds/rgb_red/blink
+    chown root system /sys/class/leds/rgb_red/duty_pcts
+    chown root system /sys/class/leds/rgb_red/ramp_step_ms
+    chown root system /sys/class/leds/rgb_green/blink
+    chown root system /sys/class/leds/rgb_green/duty_pcts
+    chown root system /sys/class/leds/rgb_green/ramp_step_ms
+    chown root system /sys/class/leds/rgb_blue/blink
+    chown root system /sys/class/leds/rgb_blue/duty_pcts
+    chown root system /sys/class/leds/rgb_blue/ramp_step_ms
+
+    chown root system /sys/class/illumination/0
+    chown root system /sys/class/illumination/1
+    chown root system /sys/class/illumination/2
+    chown root system /sys/class/illumination/3
+    chown root system /sys/class/illumination/4
+    chown root system /sys/class/illumination/5
+    chown root system /sys/class/illumination/6
+    chown root system /sys/class/illumination/7
+    chown root system /sys/class/illumination/8
+
+    chmod 0664 /sys/class/leds/rgb_red/brightness
+    chmod 0664 /sys/class/leds/rgb_green/brightness
+    chmod 0664 /sys/class/leds/rgb_blue/brightness
+    chmod 0664 /sys/class/leds/rgb_red/flashmode
+    chmod 0664 /sys/class/leds/rgb_green/flashmode
+    chmod 0664 /sys/class/leds/rgb_blue/flashmode
+    chmod 0664 /sys/class/leds/rgb_red/onms
+    chmod 0664 /sys/class/leds/rgb_green/onms
+    chmod 0664 /sys/class/leds/rgb_blue/onms
+    chmod 0664 /sys/class/leds/rgb_red/offms
+    chmod 0664 /sys/class/leds/rgb_green/offms
+    chmod 0664 /sys/class/leds/rgb_blue/offms
+    chmod 0664 /sys/class/leds/rgb_red/tunebrightness
+    chmod 0664 /sys/class/leds/rgb_green/tunebrightness
+    chmod 0664 /sys/class/leds/rgb_blue/tunebrightness
+    chmod 0664 /sys/class/illumination/0
+    chmod 0664 /sys/class/illumination/1
+    chmod 0664 /sys/class/illumination/2
+    chmod 0664 /sys/class/illumination/3
+    chmod 0664 /sys/class/illumination/4
+    chmod 0664 /sys/class/illumination/5
+    chmod 0664 /sys/class/illumination/6
+    chmod 0664 /sys/class/illumination/7
+    chmod 0664 /sys/class/illumination/8
+
+    chown system system /dev/iio:device0
+    chown system system /sys/bus/iio/devices/iio:device0/hard_offset
+    chown system system /sys/bus/iio/devices/iio:device0/sampling_frequency
+    chown system system /sys/bus/iio/devices/iio:device0/buffer/enable
+    chown system system /sys/bus/iio/devices/iio:device0/buffer/length
+    chown system system /sys/bus/iio/devices/iio:device0/trigger/current_trigger
+    chown system system /dev/iio:device1
+    chown system system /sys/bus/iio/devices/iio:device1/sampling_frequency
+    chown system system /sys/bus/iio/devices/iio:device1/buffer/enable
+    chown system system /sys/bus/iio/devices/iio:device1/buffer/length
+    chown system system /sys/bus/iio/devices/iio:device1/trigger/current_trigger
+    chown system input /sys/bus/iio/devices/iio:device1/in_accel_x_calibbias
+    chown system input /sys/bus/iio/devices/iio:device1/in_accel_y_calibbias
+    chown system input /sys/bus/iio/devices/iio:device1/in_accel_z_calibbias
+    write /sys/bus/iio/devices/iio:device0/position 1
+    write /sys/bus/iio/devices/iio:device1/position 0
+    chmod 666 /data/system/yas.cfg
+    write /data/system/yas.cfg "200,300,500,30,20,15,1,1,1,10872,166,113,376,8812,-118,340,-718,10451"
+
+    chown system system /sys/class/input/input0/driver/enable
+    chown system system /sys/class/input/input1/driver/enable
+    chown system system /sys/class/input/input0/driver/delay
+    chown system system /sys/class/input/input1/driver/cali
+
+#SONY misc
+service tad_static /system/bin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
+    user root
+    group root
+    socket tad stream 0660 system system
+    class core
+
+#CCI prop
+service QmiGateDaemon /system/bin/QmiGateDaemon
+    class main
+    user root
+    group system
+    ioprio rt 4
+
+#MAC setup
+service btnvtool /system/bin/btnvtool -I
+    user root
+    group root
+    oneshot
+
+# Allow usb charging to be disabled persistently
+on property:persist.usb.chgdisabled=1
+   write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+   write /sys/class/power_supply/battery/charging_enabled 1
+
