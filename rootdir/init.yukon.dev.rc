@@ -30,23 +30,8 @@ service tad_static /system/bin/tad_static /dev/block/platform/msm_sdcc.1/by-name
     socket tad stream 0660 system system
     class core
 
-#CCI prop
-service QmiGateDaemon /system/bin/QmiGateDaemon
-    class main
-    user root
-    group system
-    ioprio rt 4
-
 #MAC setup
 service btnvtool /system/bin/btnvtool -I
     user root
     group root
     oneshot
-
-# Allow usb charging to be disabled persistently
-on property:persist.usb.chgdisabled=1
-   write /sys/class/power_supply/battery/charging_enabled 0
-
-on property:persist.usb.chgdisabled=0
-   write /sys/class/power_supply/battery/charging_enabled 1
-
