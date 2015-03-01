@@ -22,6 +22,9 @@ $(call inherit-product, device/sony/yukon/device.mk)
 $(call inherit-product, vendor/sony/eagle/eagle-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
 
+DEVICE_PACKAGE_OVERLAYS += \
+    device/sony/eagle/overlay
+
 PRODUCT_COPY_FILES += \
     device/sony/eagle/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
     device/sony/eagle/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml \
