@@ -20,6 +20,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)
 $(call inherit-product, device/sony/yukon/device.mk)
 $(call inherit-product, vendor/sony/eagle/eagle-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+$(call inherit-product-if-exists, prebuilts/chromium/webview_prebuilt.mk)
 
 DEVICE_PACKAGE_OVERLAYS += \
     device/sony/eagle/overlay
