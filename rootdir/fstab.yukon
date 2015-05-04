@@ -10,5 +10,5 @@
 /dev/block/platform/msm_sdcc.1/by-name/boot         /boot             emmc    defaults                                                      defaults
 /dev/block/platform/msm_sdcc.1/by-name/FOTAKernel   /recovery         emmc    defaults                                                      defaults
 
-/devices/msm_sdcc.2/mmc_host                        /storage/sdcard1  vfat    noatime,nosuid,nodev                                          wait,voldmanaged=sdcard1:auto
-/devices/platform/msm_hsusb_host/usb1/1-1/          /storage/usbdisk  vfat    noatime,nosuid,nodev                                          wait,voldmanaged=usbdisk:auto
+/devices/msm_sdcc.2/mmc_host*                       auto              auto    defaults                                                      wait,voldmanaged=sdcard1:auto
+/devices/platform/msm_hsusb_host/usb1/1-1/          auto              auto    defaults                                                      wait,voldmanaged=usbdisk:auto
