@@ -23,13 +23,6 @@ on boot
     chown system system /sys/class/input/input0/driver/delay
     chown system system /sys/class/input/input1/driver/cali
 
-#SONY misc
-service tad_static /system/bin/tad_static /dev/block/platform/msm_sdcc.1/by-name/TA 0,16
-    user root
-    group root
-    socket tad stream 0660 system system
-    class core
-
 #MAC setup
 service btnvtool /system/bin/btnvtool -I
     user root
