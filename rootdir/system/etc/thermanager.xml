@@ -25,27 +25,31 @@
 		</resource>
 
 		<!-- device-specific -->
-		<resource name="backlight" type="sysfs">/sys/class/leds/wled:backlight/max_brightness</resource>
+		<resource name="backlight" type="sysfs">/sys/class/leds/lcd-backlight/max_brightness</resource>
 
-		<!--<resource name="temp-emmc" type="msm-adc">/sys/devices/qpnp-vadc-f2d06c00/die_temp</resource>-->
-		<resource name="temp-batt" type="msm-adc">/sys/devices/00-vadc_3100/batt_therm</resource>
+		<resource name="temp-emmc" type="msm-adc">/sys/devices/00-vadc-3100/die_temp</resource>
+		<resource name="temp-batt" type="msm-adc">/sys/devices/00-vadc-3100/batt_therm</resource>
 		<resource name="kgsl-3d0" type="sysfs">/sys/class/kgsl/kgsl-3d0/max_gpuclk</resource>
 		<!--<resource name="dc" type="sysfs">/sys/class/power_supply/qpnp-dc/current_max</resource>-->
 		<resource name="usb" type="sysfs">/sys/class/power_supply/usb/current_max</resource>
 		<resource name="charger" type="sysfs">/sys/class/power_supply/battery/system_temp_level</resource>
 		<resource name="charge_en" type="sysfs">/sys/class/power_supply/battery/charging_enabled</resource>
-		<resource name="temp-core" type="alias" resource="zone2" />
+
+		<!--<resource name="temp-core" type="union">
+			<resource name="zone7" />
+			<resource name="zone8" />
+		</resource>-->
 
 		<resource name="temp-gpu" type="union">
-			<resource name="zone9" />
-			<resource name="zone10" />
+			<resource name="zone2" />
+			<resource name="zone3" />
 		</resource>
 
 		<resource name="temp-cpu" type="union">
+			<resource name="zone0" />
+			<resource name="zone1" />
+			<resource name="zone4" />
 			<resource name="zone5" />
-			<resource name="zone6" />
-			<resource name="zone7" />
-			<resource name="zone8" />
 		</resource>
 
 		<!-- TODO: -->
@@ -65,7 +69,7 @@
 		<mitigation level="6"><value resource="usb">150000</value></mitigation>
 	</control>
 
-	<control name="dc">
+	<!--<control name="dc">
 		<mitigation level="off"><value resource="dc">1800000</value></mitigation>
 		<mitigation level="1"><value resource="dc">1100000</value></mitigation>
 		<mitigation level="2"><value resource="dc">900000</value></mitigation>
@@ -73,7 +77,7 @@
 		<mitigation level="4"><value resource="dc">500000</value></mitigation>
 		<mitigation level="5"><value resource="dc">300000</value></mitigation>
 		<mitigation level="6"><value resource="dc">150000</value></mitigation>
-	</control>
+	</control>-->
 
 	<control name="charge_en">
 		<mitigation level="off"><value resource="charge_en">1</value></mitigation>
@@ -137,65 +141,65 @@
 	</control>
 
 	<!-- burn-out protection -->
-	<configuration sensor="temp-core">
+	<!--<configuration sensor="temp-core">
 		<threshold>
 			<mitigation name="shutdown" level="off" />
 		</threshold>
 		<threshold trigger="120" clear="115">
 			<mitigation name="shutdown" level="1" />
 		</threshold>
-	</configuration>
+	</configuration> -->
 
 	<!-- USB and DC -->
-	<!--<configuration sensor="temp-emmc">
+	<configuration sensor="temp-emmc">
 		<threshold>
-			<mitigation name="dc" level="off" />
+			<!--<mitigation name="dc" level="off" />-->
 			<mitigation name="usb" level="off" />
 		</threshold>
-		<threshold trigger="384" clear="364">
-			<mitigation name="dc" level="1" />
+		<threshold trigger="38400" clear="36400">
+			<!--<mitigation name="dc" level="1" />-->
 			<mitigation name="usb" level="1" />
 		</threshold>
-		<threshold trigger="400" clear="380">
-			<mitigation name="dc" level="2" />
+		<threshold trigger="40000" clear="38000">
+			<!--<mitigation name="dc" level="2" />-->
 			<mitigation name="usb" level="2" />
 		</threshold>
-		<threshold trigger="416" clear="396">
-			<mitigation name="dc" level="3" />
+		<threshold trigger="41600" clear="39600">
+			<!--<mitigation name="dc" level="3" />-->
 			<mitigation name="usb" level="3" />
 		</threshold>
-		<threshold trigger="424" clear="412">
-			<mitigation name="dc" level="4" />
+		<threshold trigger="42400" clear="41200">
+			<!--<mitigation name="dc" level="4" />-->
 			<mitigation name="usb" level="4" />
 		</threshold>
-		<threshold trigger="432" clear="420">
-			<mitigation name="dc" level="5" />
+		<threshold trigger="43200" clear="42000">
+			<!--<mitigation name="dc" level="5" />-->
 			<mitigation name="usb" level="5" />
 		</threshold>
-		<threshold trigger="448" clear="440">
-			<mitigation name="dc" level="6" />
+		<threshold trigger="44800" clear="44000">
+			<!--<mitigation name="dc" level="6" />-->
 			<mitigation name="usb" level="6" />
 		</threshold>
-	</configuration>-->
+	</configuration>
 
 	<!-- charging -->
 	<configuration sensor="temp-emmc">
 		<threshold>
 			<mitigation name="charging" level="off" />
 		</threshold>
-		<threshold trigger="384" clear="372">
+		<threshold trigger="38400" clear="37200">
 			<mitigation name="charging" level="2" />
 		</threshold>
-		<threshold trigger="400" clear="380">
+		<threshold trigger="40000" clear="38000">
 			<mitigation name="charging" level="4" />
 		</threshold>
-		<threshold trigger="416" clear="396">
+		<threshold trigger="41600" clear="39600">
 			<mitigation name="charging" level="6" />
 		</threshold>
-		<threshold trigger="432" clear="420">
+		<threshold trigger="43200" clear="42000">
 			<mitigation name="charging" level="7" />
 		</threshold>
-		<threshold trigger="448" clear="436">
+		<threshold trigger="44800" clear="43600">
 			<mitigation name="charging" level="8" />
 		</threshold>
 	</configuration>
@@ -216,8 +220,8 @@
 		<threshold>
 			<mitigation name="gpu" level="off" />
 		</threshold>
-		<threshold trigger="464" clear="452">
-			<mitigation name="gpu" level="1" />
+		<threshold trigger="46400" clear="45200">
+			<mitigation name="gpu" level="2" />
 		</threshold>
 	</configuration>
 	<configuration sensor="temp-gpu">
@@ -237,7 +241,7 @@
 		<threshold>
 			<mitigation name="modem" level="off" />
 		</threshold>
-		<threshold trigger="464" clear="452">
+		<threshold trigger="46400" clear="45200">
 			<mitigation name="modem" level="1" />
 		</threshold>
 	</configuration>
@@ -247,16 +251,16 @@
 		<threshold>
 			<mitigation name="backlight" level="off" />
 		</threshold>
-		<threshold trigger="424" clear="412">
+		<threshold trigger="42400" clear="41200">
 			<mitigation name="backlight" level="1" />
 		</threshold>
-		<threshold trigger="440" clear="428">
+		<threshold trigger="44000" clear="42800">
 			<mitigation name="backlight" level="2" />
 		</threshold>
-		<threshold trigger="456" clear="444">
+		<threshold trigger="45600" clear="44400">
 			<mitigation name="backlight" level="3" />
 		</threshold>
-		<threshold trigger="464" clear="452">
+		<threshold trigger="46400" clear="45200">
 			<mitigation name="backlight" level="4" />
 		</threshold>
 	</configuration>
