@@ -24,7 +24,7 @@ on boot
     chown system system /sys/class/input/input1/driver/cali
 
 #MAC setup
-service btnvtool /system/bin/btnvtool -I
+service btnvtool /system/vendor/bin/btnvtool -I
     user root
     group root
     oneshot
