@@ -27,18 +27,31 @@ $(call inherit-product-if-exists, vendor/google/products/gms.mk)
 DEVICE_PACKAGE_OVERLAYS += \
     device/sony/eagle/overlay
 
+# Device etc
 PRODUCT_COPY_FILES += \
     device/sony/eagle/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
     device/sony/eagle/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml \
-    device/sony/eagle/rootdir/system/etc/sap.conf:system/etc/sap.conf \
     device/sony/eagle/rootdir/system/etc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/sony/eagle/rootdir/system/etc/libnfc-nxp.conf:system/etc/libnfc-nxp.conf \
-    device/sony/eagle/rootdir/fstab.yukon:root/fstab.yukon \
-    device/sony/eagle/rootdir/init.yukon.dev.rc:root/init.yukon.dev.rc
+    device/sony/eagle/rootdir/system/etc/libnfc-nxp.conf:system/etc/libnfc-nxp.conf
+
+# Device Init
+PRODUCT_PACKAGES += \
+    fstab.yukon \
+    init.recovery.eagle \
+    init.eagle \
+    ueventd.eagle
+
+# Lights
+PRODUCT_PACKAGES += \
+    lights.eagle
+
+# Simple PowerHAL
+PRODUCT_PACKAGES += \
+    power.eagle
 
 # NFC config
-PRODUCT_PACKAGES += nfc_nci.eagle
-ADDITIONAL_DEFAULT_PROPERTIES += ro.hardware.nfc_nci=eagle
+PRODUCT_PACKAGES += \
+    nfc_nci.eagle
 
 # Product attributes
 PRODUCT_NAME := aosp_d2303
