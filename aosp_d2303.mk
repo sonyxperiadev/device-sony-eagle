@@ -14,40 +14,10 @@
 
 TARGET_KERNEL_CONFIG := aosp_yukon_eagle_defconfig
 
-# Include others
-$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
-$(call inherit-product, device/sony/yukon/platform.mk)
-$(call inherit-product, vendor/sony/eagle/eagle-vendor.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, device/sony/eagle/device.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-
-DEVICE_PACKAGE_OVERLAYS += \
-    device/sony/eagle/overlay
-
-# Device etc
-PRODUCT_COPY_FILES += \
-    device/sony/eagle/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
-    device/sony/eagle/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml \
-    device/sony/eagle/rootdir/system/etc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/sony/eagle/rootdir/system/etc/libnfc-nxp.conf:system/etc/libnfc-nxp.conf
-
-# Device Init
-PRODUCT_PACKAGES += \
-    fstab.eagle \
-    init.recovery.eagle \
-    init.eagle \
-    ueventd.eagle
-
-# Lights
-PRODUCT_PACKAGES += \
-    lights.eagle
-
-# Simple PowerHAL
-PRODUCT_PACKAGES += \
-    power.eagle
-
-# NFC config
-PRODUCT_PACKAGES += \
-    nfc_nci.eagle
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 # Product attributes
 PRODUCT_NAME := aosp_d2303
@@ -56,10 +26,3 @@ PRODUCT_MODEL := Xperia M2 (AOSP)
 PRODUCT_BRAND := Sony
 PRODUCT_MANUFACTURER := Sony
 
-PRODUCT_AAPT_CONFIG := large
-PRODUCT_AAPT_PREBUILT_DPI := hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.sf.lcd_density=240 \
-    ro.usb.pid_suffix=1B8
