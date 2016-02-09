@@ -32,7 +32,7 @@ PRODUCT_COPY_FILES += \
 
 # Device Init
 PRODUCT_PACKAGES += \
-    fstab.yukon \
+    fstab.eagle \
     init.recovery.eagle \
     init.eagle \
     ueventd.eagle

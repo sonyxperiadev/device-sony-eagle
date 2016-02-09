@@ -24,7 +24,7 @@ on post-fs-data
     symlink /dev/pn54x /dev/pn547
 
 on fs
-    mount_all ./fstab.yukon
+    mount_all ./fstab.eagle
     write /sys/kernel/boot_adsp/boot 1
 
 on boot
