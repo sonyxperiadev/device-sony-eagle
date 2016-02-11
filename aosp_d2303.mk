@@ -26,7 +26,6 @@ DEVICE_PACKAGE_OVERLAYS += \
 PRODUCT_COPY_FILES += \
     device/sony/eagle/rootdir/system/etc/mixer_paths.xml:system/etc/mixer_paths.xml \
     device/sony/eagle/rootdir/system/etc/thermanager.xml:system/etc/thermanager.xml \
-    device/sony/eagle/rootdir/system/etc/sap.conf:system/etc/sap.conf \
     device/sony/eagle/rootdir/system/etc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
     device/sony/eagle/rootdir/system/etc/libnfc-nxp.conf:system/etc/libnfc-nxp.conf \
     device/sony/eagle/rootdir/fstab.yukon:root/fstab.yukon \
