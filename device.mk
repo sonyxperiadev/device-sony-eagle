@@ -56,4 +56,4 @@ PRODUCT_PROPERTY_OVERRIDES := \
 
 # Inherit from those products. Most specific first.
 $(call inherit-product, device/sony/yukon/platform.mk)
-$(call inherit-product, vendor/sony/eagle/eagle-vendor.mk)
+$(call inherit-product, vendor/sony/yukon-eagle/eagle-vendor.mk)
